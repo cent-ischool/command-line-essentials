@@ -69,7 +69,13 @@
                 <div class="cert-course">Command Line Essentials</div>
                 <div class="cert-edition" id="cert-edition"></div>
                 <div class="cert-desc">A hands-on course covering the terminal, file navigation,<br>and command-line tools across Windows, macOS, and Linux.</div>
-                <div class="cert-date" id="cert-date"></div>
+                <div class="cert-footer-row">
+                  <div class="cert-date" id="cert-date"></div>
+                  <div class="cert-qr-wrap">
+                    <div id="cert-qr"></div>
+                    <div class="cert-qr-label">Scan to verify</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -83,6 +89,9 @@
     </main>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+    integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSr7FURoiORugSgQJ08bD9bTzHMY4ZRrzRhkA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="js/app.js"></script>
   <script src="js/terminal.js"></script>
   <script>
@@ -105,17 +114,45 @@
       macos: '⌘ macOS Edition',
       linux: '🐧 Ubuntu Linux Edition',
     };
+    const EDITION_NAMES = {
+      windows: 'Windows',
+      macos: 'macOS',
+      linux: 'Ubuntu Linux',
+    };
 
     function generateCert() {
       const name = document.getElementById('cert-name-input').value.trim();
       if (!name) { document.getElementById('cert-name-input').focus(); return; }
       localStorage.setItem('cle_cert_name', name);
-      document.getElementById('cert-name-display').textContent = name;
+
       const os = getOS();
-      document.getElementById('cert-edition').textContent = EDITION_LABELS[os] || '';
       const now = new Date();
-      document.getElementById('cert-date').textContent =
-        now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      const completionDate = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+      document.getElementById('cert-name-display').textContent = name;
+      document.getElementById('cert-edition').textContent = EDITION_LABELS[os] || '';
+      document.getElementById('cert-date').textContent = completionDate;
+
+      // Build QR code payload
+      const payload = JSON.stringify({
+        issuer: 'Syracuse University School of Information Studies',
+        awarded_to: name,
+        course: 'Command Line Essentials',
+        edition: EDITION_NAMES[os] || os,
+        completion_date: completionDate,
+      });
+
+      const qrEl = document.getElementById('cert-qr');
+      qrEl.innerHTML = '';
+      new QRCode(qrEl, {
+        text: payload,
+        width: 88,
+        height: 88,
+        colorDark: '#1a2744',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M,
+      });
+
       document.getElementById('cert-output').style.display = 'block';
       document.getElementById('cert-output').scrollIntoView({ behavior: 'smooth' });
     }

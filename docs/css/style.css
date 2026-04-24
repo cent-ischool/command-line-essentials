@@ -342,7 +342,14 @@ code { font-family: 'Courier New', monospace; font-size: 13px; background: var(-
   padding: 3px 14px; margin-bottom: 20px;
 }
 .cert-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 32px; }
+.cert-footer-row {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border);
+}
 .cert-date { font-size: 13px; color: var(--text-faint); font-style: italic; }
+.cert-qr-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.cert-qr-wrap img, .cert-qr-wrap canvas { display: block; }
+.cert-qr-label { font-size: 10px; color: var(--text-faint); text-transform: uppercase; letter-spacing: .5px; }
 .cert-actions { display: flex; gap: 12px; align-items: center; margin-bottom: 32px; }
 .cert-print-btn {
   background: var(--blue); color: var(--white); border: none;
