@@ -55,6 +55,7 @@
               <div class="cert-name" id="cert-name-display"></div>
               <div class="cert-presented">has successfully completed</div>
               <div class="cert-course">Command Line Essentials</div>
+              <div class="cert-edition" id="cert-edition"></div>
               <div class="cert-desc">A hands-on course covering the terminal, file navigation,<br>and command-line tools across Windows, macOS, and Linux.</div>
               <div class="cert-date" id="cert-date"></div>
             </div>
@@ -81,11 +82,19 @@
       if (saved) document.getElementById('cert-name-input').value = saved;
     }
 
+    const EDITION_LABELS = {
+      windows: '⊞ Windows Edition',
+      macos: '⌘ macOS Edition',
+      linux: '🐧 Ubuntu Linux Edition',
+    };
+
     function generateCert() {
       const name = document.getElementById('cert-name-input').value.trim();
       if (!name) { document.getElementById('cert-name-input').focus(); return; }
       localStorage.setItem('cle_cert_name', name);
       document.getElementById('cert-name-display').textContent = name;
+      const os = getOS();
+      document.getElementById('cert-edition').textContent = EDITION_LABELS[os] || '';
       const now = new Date();
       document.getElementById('cert-date').textContent =
         now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
