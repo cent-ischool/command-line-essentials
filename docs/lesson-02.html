@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2: Navigating Folders — Command Line Essentials</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-lesson="lesson-02">
+
+  <div id="os-overlay" style="display:none">
+    <div class="os-overlay-box">
+      <h2>Choose your platform</h2>
+      <p>We'll show instructions for your operating system.</p>
+      <div class="os-buttons">
+        <button class="os-btn" onclick="selectOS('windows', false)"><span class="os-icon">⊞</span><div><div class="os-name">Windows</div><div class="os-desc">PowerShell or CMD</div></div></button>
+        <button class="os-btn" onclick="selectOS('macos', false)"><span class="os-icon">⌘</span><div><div class="os-name">macOS</div><div class="os-desc">Terminal app</div></div></button>
+        <button class="os-btn" onclick="selectOS('linux', false)"><span class="os-icon">🐧</span><div><div class="os-name">Ubuntu Linux</div><div class="os-desc">Bash terminal</div></div></button>
+      </div>
+      <p class="os-note">Saved as a cookie — change anytime</p>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <a class="topbar-brand" href="index.html">⌨️ Command Line Essentials</a>
+    <div class="topbar-os">
+      <span>Your platform:</span>
+      <span id="os-badge" class="os-badge"></span>
+      <button class="change-os" onclick="showOSOverlay()">change</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar" class="sidebar"></nav>
+    <main class="main-content">
+
+      <h1 class="lesson-title">Lesson 2: Navigating Folders</h1>
+      <p class="lesson-intro">Learn to move around your computer using the terminal. You'll use these commands every time you open a terminal.</p>
+
+      <div class="lesson-section">
+        <h2>Where Am I?</h2>
+        <p>When you open a terminal, you start in a folder. To see which folder you're in:</p>
+        <p data-os="windows"><code>cd</code> — with no arguments, prints your current location.</p>
+        <p data-os="macos linux"><code>pwd</code> — short for "print working directory."</p>
+        <p>The location shown is called your <strong>current working directory</strong>.</p>
+      </div>
+
+      <div class="lesson-section">
+        <h2>Listing Files</h2>
+        <p data-os="windows"><code>dir</code> — lists all files and folders in your current location.</p>
+        <p data-os="macos linux"><code>ls</code> — lists all files and folders in your current location.</p>
+        <p>Useful flags:</p>
+        <p data-os="windows"><code>dir /a</code> — show hidden files too (files starting with a dot).</p>
+        <p data-os="macos linux"><code>ls -a</code> — show hidden files too. <code>ls -la</code> adds size and date details.</p>
+      </div>
+
+      <div class="lesson-section">
+        <h2>Moving Between Folders</h2>
+        <p><code>cd FolderName</code> — enter a folder (same on all platforms).</p>
+        <p><code>cd ..</code> — go up one level to the parent folder (same on all platforms).</p>
+        <p><code>cd ~</code> — go to your home folder. The <code>~</code> symbol always means "home."</p>
+        <p data-os="windows">Windows alternative: <code>cd $env:USERPROFILE</code></p>
+        <div class="callout">Tip: Press <strong>Tab</strong> to auto-complete folder names as you type.</div>
+      </div>
+
+      <div class="lesson-section">
+        <h2>Relative vs Absolute Paths</h2>
+        <p>A <strong>relative path</strong> starts from where you are now: <code>cd Documents</code></p>
+        <p data-os="windows">An <strong>absolute path</strong> starts from the root: <code>cd C:\Users\YourName\Documents</code></p>
+        <p data-os="macos linux">An <strong>absolute path</strong> starts from the root: <code>cd /Users/YourName/Documents</code></p>
+      </div>
+
+      <div id="terminal-container"></div>
+
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/terminal.js"></script>
+  <script>
+    initLesson('lesson-02');
+
+    const EXERCISES = [
+      {
+        prompt: { windows: 'Print your current working directory.', macos: 'Print your current working directory.', linux: 'Print your current working directory.' },
+        expected: { windows: ['cd', 'pwd'], macos: ['pwd'], linux: ['pwd'] },
+        output: { windows: 'C:\\Users\\student', macos: '/Users/student', linux: '/home/student' },
+        hint: 'Windows: <code>cd</code> (no arguments). Mac/Linux: <code>pwd</code>.'
+      },
+      {
+        prompt: { windows: 'List the files in your current folder.', macos: 'List the files in your current folder.', linux: 'List the files in your current folder.' },
+        expected: { windows: ['dir'], macos: ['ls'], linux: ['ls'] },
+        output: { all: 'Documents  Downloads  Desktop' },
+        hint: 'Windows: <code>dir</code>. Mac/Linux: <code>ls</code>.'
+      },
+      {
+        prompt: { all: 'Show all files including hidden ones (files that start with a dot).' },
+        expected: {
+          windows: ['dir /a'],
+          macos: ['ls -a', 'ls -la', 'ls -al', 'ls -a -l', 'ls -l -a'],
+          linux: ['ls -a', 'ls -la', 'ls -al', 'ls -a -l', 'ls -l -a']
+        },
+        output: { all: '.hidden  Documents  Downloads  Desktop' },
+        hint: 'Windows: <code>dir /a</code>. Mac/Linux: <code>ls -a</code>.'
+      },
+      {
+        prompt: { all: 'Go up one level to the parent folder.' },
+        expected: { all: ['cd ..'] },
+        output: { all: '' },
+        hint: 'Try: <code>cd ..</code> (two dots).'
+      },
+      {
+        prompt: { all: 'Go to your home folder using the <code>~</code> shortcut.' },
+        expected: {
+          windows: ['cd ~', 'cd $env:userprofile', 'cd $env:USERPROFILE'],
+          macos: ['cd ~', 'cd'],
+          linux: ['cd ~', 'cd']
+        },
+        output: { all: '' },
+        hint: 'Try: <code>cd ~</code>'
+      }
+    ];
+
+    new GuidedTerminal(
+      document.getElementById('terminal-container'),
+      EXERCISES, 'lesson-02', 'lesson-03.html'
+    );
+  </script>
+</body>
+</html>
