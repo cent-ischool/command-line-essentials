@@ -12,4 +12,4 @@ certificate.pdf
 
 # Editor directories
 .vscode/
-.idea/
+.idea/.worktrees/
