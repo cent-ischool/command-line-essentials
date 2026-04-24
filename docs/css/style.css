@@ -279,6 +279,14 @@ code { font-family: 'Courier New', monospace; font-size: 13px; background: var(-
 .cert-card .card-title { color: var(--white); }
 
 /* ── Certificate Page ─────────────────────────────── */
+.cert-locked {
+  text-align: center; padding: 60px 24px;
+  border: 1px solid var(--border); border-radius: 10px;
+  background: var(--surface); max-width: 480px;
+}
+.cert-locked-icon { font-size: 40px; margin-bottom: 12px; }
+.cert-locked h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.cert-locked p { color: var(--text-muted); margin-bottom: 24px; }
 .cert-intro { margin-bottom: 32px; }
 .cert-name-form { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
 .cert-name-input {
@@ -301,15 +309,20 @@ code { font-family: 'Courier New', monospace; font-size: 13px; background: var(-
   background: #fff;
   box-shadow: 0 4px 24px rgba(0,0,0,.1);
   max-width: 760px;
+  overflow: hidden;
 }
-.cert-border-inner {
-  border: 2px solid #bfdbfe;
-  border-radius: 2px;
-  padding: 48px 56px;
+.cert-header {
+  background: #1a2744;
+  padding: 28px 48px;
+  text-align: center;
+  border-bottom: 3px solid #bfdbfe;
+}
+.cert-logo { max-height: 72px; width: auto; }
+.cert-body {
+  padding: 36px 56px 44px;
   text-align: center;
   background: #fefefe;
 }
-.cert-logo { max-height: 64px; width: auto; margin-bottom: 20px; }
 .cert-heading {
   font-size: 11px; font-weight: 700; letter-spacing: 3px;
   text-transform: uppercase; color: var(--text-muted); margin-bottom: 28px;

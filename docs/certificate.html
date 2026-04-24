@@ -34,36 +34,49 @@
     <nav id="sidebar" class="sidebar no-print"></nav>
     <main class="main-content">
 
-      <div class="cert-intro no-print">
-        <h1 class="lesson-title">Certificate of Completion</h1>
-        <p class="lesson-intro">Enter your name as you'd like it to appear on the certificate, then print or save it as a PDF.</p>
-        <div class="cert-name-form">
-          <input type="text" id="cert-name-input" class="cert-name-input"
-            placeholder="Your full name" maxlength="60"
-            onkeydown="if(event.key==='Enter') generateCert()">
-          <button class="cert-generate-btn" onclick="generateCert()">Generate Certificate</button>
-        </div>
+      <!-- Shown when not all lessons are complete -->
+      <div id="cert-locked" style="display:none" class="cert-locked no-print">
+        <div class="cert-locked-icon">🔒</div>
+        <h2>Certificate Locked</h2>
+        <p>You need to complete all 5 lessons before you can generate your certificate.</p>
+        <a href="index.html" class="next-lesson-btn">Back to Dashboard</a>
       </div>
 
-      <div id="cert-output" style="display:none">
-        <div class="certificate">
-          <div class="cert-border-outer">
-            <div class="cert-border-inner">
-              <img src="images/ischool_logo_reverseX2.png" alt="Syracuse University iSchool" class="cert-logo">
-              <div class="cert-heading">Certificate of Completion</div>
-              <div class="cert-presented">This certifies that</div>
-              <div class="cert-name" id="cert-name-display"></div>
-              <div class="cert-presented">has successfully completed</div>
-              <div class="cert-course">Command Line Essentials</div>
-              <div class="cert-edition" id="cert-edition"></div>
-              <div class="cert-desc">A hands-on course covering the terminal, file navigation,<br>and command-line tools across Windows, macOS, and Linux.</div>
-              <div class="cert-date" id="cert-date"></div>
-            </div>
+      <!-- Shown when all lessons are complete -->
+      <div id="cert-unlocked" style="display:none">
+        <div class="cert-intro no-print">
+          <h1 class="lesson-title">Certificate of Completion</h1>
+          <p class="lesson-intro">Enter your name as you'd like it to appear on the certificate, then print or save it as a PDF.</p>
+          <div class="cert-name-form">
+            <input type="text" id="cert-name-input" class="cert-name-input"
+              placeholder="Your full name" maxlength="60"
+              onkeydown="if(event.key==='Enter') generateCert()">
+            <button class="cert-generate-btn" onclick="generateCert()">Generate Certificate</button>
           </div>
         </div>
-        <div class="cert-actions no-print">
-          <button class="cert-print-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
-          <button class="cert-edit-btn" onclick="editName()">Edit name</button>
+
+        <div id="cert-output" style="display:none">
+          <div class="certificate">
+            <div class="cert-border-outer">
+              <div class="cert-header">
+                <img src="images/ischool_logo_reverseX2.png" alt="Syracuse University iSchool" class="cert-logo">
+              </div>
+              <div class="cert-body">
+                <div class="cert-heading">Certificate of Completion</div>
+                <div class="cert-presented">This certifies that</div>
+                <div class="cert-name" id="cert-name-display"></div>
+                <div class="cert-presented">has successfully completed</div>
+                <div class="cert-course">Command Line Essentials</div>
+                <div class="cert-edition" id="cert-edition"></div>
+                <div class="cert-desc">A hands-on course covering the terminal, file navigation,<br>and command-line tools across Windows, macOS, and Linux.</div>
+                <div class="cert-date" id="cert-date"></div>
+              </div>
+            </div>
+          </div>
+          <div class="cert-actions no-print">
+            <button class="cert-print-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+            <button class="cert-edit-btn" onclick="editName()">Edit name</button>
+          </div>
         </div>
       </div>
 
@@ -78,6 +91,11 @@
       if (!os) { showOSOverlay(); return; }
       applyOS(os);
       renderSidebar(null);
+      if (!allLessonsComplete()) {
+        document.getElementById('cert-locked').style.display = 'block';
+        return;
+      }
+      document.getElementById('cert-unlocked').style.display = 'block';
       const saved = localStorage.getItem('cle_cert_name');
       if (saved) document.getElementById('cert-name-input').value = saved;
     }
