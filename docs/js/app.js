@@ -107,7 +107,12 @@ function selectOS(os, redirect) {
   } else {
     applyOS(os);
     const lessonId = document.body.dataset.lesson;
-    if (lessonId) renderSidebar(lessonId);
+    if (lessonId) {
+      renderSidebar(lessonId);
+    } else {
+      renderSidebar(null);
+      renderDashboard();
+    }
     if (window._terminal) window._terminal.render();
   }
 }
