@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1: What Is the Terminal? — Command Line Essentials</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-lesson="lesson-01">
+
+  <div id="os-overlay" style="display:none">
+    <div class="os-overlay-box">
+      <h2>Choose your platform</h2>
+      <p>We'll show instructions for your operating system.</p>
+      <div class="os-buttons">
+        <button class="os-btn" onclick="selectOS('windows', false)">
+          <span class="os-icon">⊞</span>
+          <div><div class="os-name">Windows</div><div class="os-desc">PowerShell or CMD</div></div>
+        </button>
+        <button class="os-btn" onclick="selectOS('macos', false)">
+          <span class="os-icon">⌘</span>
+          <div><div class="os-name">macOS</div><div class="os-desc">Terminal app</div></div>
+        </button>
+        <button class="os-btn" onclick="selectOS('linux', false)">
+          <span class="os-icon">🐧</span>
+          <div><div class="os-name">Ubuntu Linux</div><div class="os-desc">Bash terminal</div></div>
+        </button>
+      </div>
+      <p class="os-note">Saved as a cookie — change anytime</p>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <a class="topbar-brand" href="index.html">⌨️ Command Line Essentials</a>
+    <div class="topbar-os">
+      <span>Your platform:</span>
+      <span id="os-badge" class="os-badge"></span>
+      <button class="change-os" onclick="showOSOverlay()">change</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar" class="sidebar"></nav>
+    <main class="main-content">
+
+      <h1 class="lesson-title">Lesson 1: What Is the Terminal?</h1>
+      <p class="lesson-intro">The terminal is a text-based way to control your computer. It might look intimidating at first, but it's incredibly powerful — and you'll be comfortable with it by the end of this lesson.</p>
+
+      <div class="lesson-section">
+        <h2>Opening the Terminal</h2>
+        <p data-os="windows">Press <strong>Win + S</strong>, type <strong>PowerShell</strong>, and hit Enter. Or press <strong>Win + R</strong>, type <code>powershell</code>, and press Enter.</p>
+        <p data-os="macos">Press <strong>⌘ + Space</strong>, type <strong>Terminal</strong>, and hit Enter. Or open Finder → Applications → Utilities → Terminal.</p>
+        <p data-os="linux">Press <strong>Ctrl + Alt + T</strong> to open the terminal directly. Or search for "Terminal" in your applications menu.</p>
+      </div>
+
+      <div class="lesson-section">
+        <h2>Understanding the Prompt</h2>
+        <p data-os="windows">When PowerShell is ready, you'll see something like: <code>PS C:\Users\YourName&gt;</code> — this means the terminal is waiting for your command.</p>
+        <p data-os="macos">When Terminal is ready, you'll see something like: <code>YourName@Mac ~ %</code> — the <code>~</code> means your home folder.</p>
+        <p data-os="linux">When the terminal is ready, you'll see something like: <code>user@computer:~$</code> — the <code>~</code> means your home folder and <code>$</code> means you're a regular user.</p>
+        <p>Everything after the prompt is where you type. Press <strong>Enter</strong> to run a command.</p>
+      </div>
+
+      <div class="lesson-section">
+        <h2>Your First Commands</h2>
+        <p>The <code>echo</code> command prints text to the screen. Try it:</p>
+        <p data-os="windows"><code>echo "Hello, World!"</code></p>
+        <p data-os="macos linux"><code>echo "Hello, World!"</code></p>
+
+        <p>To see your username:</p>
+        <p data-os="windows"><code>echo $env:USERNAME</code> — prints your Windows username.</p>
+        <p data-os="macos linux"><code>whoami</code> — prints your username.</p>
+
+        <p>To clear the terminal screen:</p>
+        <p data-os="windows"><code>cls</code></p>
+        <p data-os="macos linux"><code>clear</code></p>
+
+        <div class="callout">Tip: Press <strong>↑</strong> to cycle through previous commands. Press <strong>Ctrl+C</strong> to cancel a running command.</div>
+      </div>
+
+      <div id="terminal-container"></div>
+
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/terminal.js"></script>
+  <script>
+    initLesson('lesson-01');
+
+    const EXERCISES = [
+      {
+        prompt: {
+          all: 'Print "Hello, World!" to the screen using the <code>echo</code> command.'
+        },
+        expected: {
+          all: ['echo "hello, world!"', "echo 'hello, world!'", 'echo hello, world!', 'echo "Hello, World!"', "echo 'Hello, World!'"]
+        },
+        output: { all: 'Hello, World!' },
+        hint: 'Type: echo "Hello, World!" and press Enter (or the Run button).'
+      },
+      {
+        prompt: {
+          windows: 'Print your username to the screen.',
+          macos: 'Print your username to the screen.',
+          linux: 'Print your username to the screen.'
+        },
+        expected: {
+          windows: ['echo $env:username', 'echo $env:USERNAME', 'whoami'],
+          macos: ['whoami'],
+          linux: ['whoami']
+        },
+        output: { all: 'student' },
+        hint: 'Windows: try <code>echo $env:USERNAME</code>. Mac/Linux: try <code>whoami</code>.'
+      },
+      {
+        prompt: {
+          windows: 'Clear the terminal screen.',
+          macos: 'Clear the terminal screen.',
+          linux: 'Clear the terminal screen.'
+        },
+        expected: {
+          windows: ['cls', 'clear'],
+          macos: ['clear'],
+          linux: ['clear']
+        },
+        output: { all: '(Terminal cleared)' },
+        hint: 'Windows: <code>cls</code>. Mac/Linux: <code>clear</code>.'
+      }
+    ];
+
+    new GuidedTerminal(
+      document.getElementById('terminal-container'),
+      EXERCISES, 'lesson-01', 'lesson-02.html'
+    );
+  </script>
+</body>
+</html>
