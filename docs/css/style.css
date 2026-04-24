@@ -159,6 +159,7 @@ code { font-family: 'Courier New', monospace; font-size: 13px; background: var(-
   font-family: 'Courier New', monospace; font-size: 13px; color: var(--terminal-text);
   caret-color: var(--terminal-text);
 }
+.terminal-input::placeholder { color: var(--terminal-muted); opacity: 1; }
 .run-btn {
   background: var(--blue); color: var(--white); border: none; border-radius: 4px;
   padding: 4px 14px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap;
@@ -229,6 +230,7 @@ code { font-family: 'Courier New', monospace; font-size: 13px; background: var(-
   flex: 1; background: transparent; border: none; outline: none;
   font-family: 'Courier New', monospace; font-size: 12px; color: var(--terminal-text); caret-color: var(--terminal-text);
 }
+.free-terminal-input::placeholder { color: var(--terminal-muted); opacity: 1; }
 .free-run-btn { background: var(--blue); color: var(--white); border: none; border-radius: 4px; padding: 3px 10px; font-size: 11px; cursor: pointer; }
 
 /* ── Index / Dashboard ────────────────────────────── */
