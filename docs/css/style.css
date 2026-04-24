@@ -20,9 +20,10 @@
   --terminal-bg: #0f172a;
   --terminal-chrome: #1e293b;
   --terminal-border: #334155;
-  --terminal-text: #e2e8f0;
-  --terminal-muted: #cbd5e1;
+  --terminal-text: #f1f5f9;
+  --terminal-muted: #e2e8f0;
   --terminal-faint: #94a3b8;
+  --terminal-prompt-label: #93c5fd;
   --terminal-green: #4ade80;
   --terminal-red: #f87171;
   --radius-pill: 999px;
@@ -152,7 +153,7 @@ code { font-family: 'Courier New', monospace; font-size: 13px; background: var(-
   display: flex; align-items: center; gap: 8px;
   background: var(--terminal-bg); border-radius: 6px; padding: 8px 12px;
 }
-.terminal-prompt { font-family: 'Courier New', monospace; font-size: 12px; color: var(--text-muted); white-space: nowrap; flex-shrink: 0; }
+.terminal-prompt { font-family: 'Courier New', monospace; font-size: 12px; color: var(--terminal-prompt-label); white-space: nowrap; flex-shrink: 0; }
 .terminal-input {
   flex: 1; background: transparent; border: none; outline: none;
   font-family: 'Courier New', monospace; font-size: 13px; color: var(--terminal-text);
@@ -210,7 +211,7 @@ code { font-family: 'Courier New', monospace; font-size: 13px; background: var(-
 .checklist-item.done .check-icon::before { content: '✓'; color: var(--green); }
 .free-terminal-box { background: var(--terminal-bg); border-radius: 8px; overflow: hidden; }
 .free-terminal-header { background: var(--terminal-chrome); padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; }
-.free-terminal-title { font-size: 12px; color: var(--text-muted); font-family: 'Courier New', monospace; }
+.free-terminal-title { font-size: 12px; color: var(--terminal-muted); font-family: 'Courier New', monospace; }
 .reset-terminal-btn { background: none; border: 1px solid var(--terminal-border); border-radius: 4px; color: var(--text-muted); font-size: 11px; padding: 2px 8px; cursor: pointer; }
 .reset-terminal-btn:hover { color: var(--terminal-faint); border-color: #475569; }
 .free-terminal-output { padding: 10px 12px; font-family: 'Courier New', monospace; font-size: 12px; min-height: 280px; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; }
@@ -223,7 +224,7 @@ code { font-family: 'Courier New', monospace; font-size: 13px; background: var(-
   display: flex; align-items: center; gap: 6px;
   padding: 8px 12px; border-top: 1px solid var(--terminal-chrome);
 }
-.free-terminal-prompt-text { font-family: 'Courier New', monospace; font-size: 12px; color: var(--text-muted); white-space: nowrap; flex-shrink: 0; }
+.free-terminal-prompt-text { font-family: 'Courier New', monospace; font-size: 12px; color: var(--terminal-prompt-label); white-space: nowrap; flex-shrink: 0; }
 .free-terminal-input {
   flex: 1; background: transparent; border: none; outline: none;
   font-family: 'Courier New', monospace; font-size: 12px; color: var(--terminal-text); caret-color: var(--terminal-text);

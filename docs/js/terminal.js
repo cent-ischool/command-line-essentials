@@ -65,7 +65,7 @@ class GuidedTerminal {
         <div class="terminal-input-row">
           <span class="terminal-prompt">${this._esc(this.prompt)}</span>
           <input type="text" id="cmd-input" class="terminal-input"
-            autocomplete="off" spellcheck="false" placeholder="type your command here">
+            autocomplete="off" spellcheck="false" placeholder="type your command and press Enter">
           <button class="run-btn" onclick="window._terminal.run()">▶ Run</button>
         </div>
         <div id="cmd-output" class="terminal-output" style="display:none"></div>
