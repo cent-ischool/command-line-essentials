@@ -200,9 +200,24 @@ code { font-family: 'Courier New', monospace; font-size: 13px; background: var(-
 .next-lesson-btn:hover { background: #1e40af; text-decoration: none; }
 
 /* ── Free Terminal (Lesson 5) ─────────────────────── */
-.challenge-layout { display: flex; gap: 24px; align-items: flex-start; }
-.challenge-terminal { flex: 3; min-width: 0; }
-.challenge-info { flex: 2; min-width: 0; }
+.challenge-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 20px;
+  align-items: start;
+}
+.challenge-goal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  min-width: 0;
+}
+.challenge-goal h2 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.challenge-goal pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px; font-size: 13px; overflow-x: auto; margin-top: 10px; }
+.challenge-hints-col { min-width: 0; }
+.challenge-terminal { min-width: 0; }
+.challenge-checklist-col { min-width: 0; }
 .checklist { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
 .hint-accordion { border: 1px solid var(--border); border-radius: 8px; margin-top: 12px; overflow: hidden; }
 .hint-accordion summary { padding: 12px 16px; font-size: 14px; font-weight: 600; color: var(--text-muted); cursor: pointer; user-select: none; list-style: none; display: flex; align-items: center; gap: 8px; }
