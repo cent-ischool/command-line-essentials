@@ -37,10 +37,10 @@
       <h1 class="lesson-title">Lesson 5: Challenge — Build a Recipe Collection</h1>
       <p class="lesson-intro">Put everything together. Build a folder structure using only the terminal. The checklist tracks your progress in real time.</p>
 
-      <div class="challenge-grid">
+      <div class="challenge-stack">
 
-        <!-- Row 1: Goal (full width) -->
-        <div class="challenge-goal challenge-full">
+        <!-- Row 1: Goal -->
+        <div class="challenge-goal">
           <h2>The Goal</h2>
           <p>Create a <code>my-recipes</code> folder with three category folders, each containing a recipe file.</p>
           <pre>my-recipes/
@@ -52,7 +52,21 @@
     └── favorite.txt</pre>
         </div>
 
-        <!-- Row 2 col 1 (66%): Terminal -->
+        <!-- Row 2: Hints accordion -->
+        <details class="hint-accordion">
+          <summary>💡 Show hints</summary>
+          <ol>
+            <li>Create the <code>my-recipes</code> folder: <code>mkdir my-recipes</code></li>
+            <li data-os="windows">Create subfolders: <code>mkdir my-recipes/breakfast my-recipes/lunch my-recipes/dinner</code></li>
+            <li data-os="macos linux">Create subfolders: <code>mkdir my-recipes/breakfast my-recipes/lunch my-recipes/dinner</code></li>
+            <li data-os="windows">Create files: <code>type nul &gt; my-recipes/breakfast/favorite.txt</code> (repeat for lunch, dinner)</li>
+            <li data-os="macos linux">Create files: <code>touch my-recipes/breakfast/favorite.txt my-recipes/lunch/favorite.txt my-recipes/dinner/favorite.txt</code></li>
+            <li>Add content: <code>echo "Pancakes!" &gt; my-recipes/breakfast/favorite.txt</code></li>
+            <li>Verify: <code>ls -R my-recipes</code></li>
+          </ol>
+        </details>
+
+        <!-- Row 3: Terminal -->
         <div class="challenge-terminal">
           <div class="free-terminal-box">
             <div class="free-terminal-header">
@@ -75,34 +89,16 @@
           </div>
         </div>
 
-        <!-- Row 2 col 2 (33%): Checklist -->
-        <div class="challenge-checklist-col">
-          <div class="checklist">
-            <h3>Checklist</h3>
-            <div id="goal-0" class="checklist-item"><span class="check-icon"></span>Create <code>my-recipes/</code> folder</div>
-            <div id="goal-1" class="checklist-item"><span class="check-icon"></span>Create <code>breakfast/</code> subfolder</div>
-            <div id="goal-2" class="checklist-item"><span class="check-icon"></span>Create <code>lunch/</code> subfolder</div>
-            <div id="goal-3" class="checklist-item"><span class="check-icon"></span>Create <code>dinner/</code> subfolder</div>
-            <div id="goal-4" class="checklist-item"><span class="check-icon"></span>Add a file in <code>breakfast/</code></div>
-            <div id="goal-5" class="checklist-item"><span class="check-icon"></span>Add a file in <code>lunch/</code></div>
-            <div id="goal-6" class="checklist-item"><span class="check-icon"></span>Add a file in <code>dinner/</code></div>
-          </div>
-        </div>
-
-        <!-- Row 3: Hints accordion (full width) -->
-        <div class="challenge-hints-row challenge-full">
-          <details class="hint-accordion">
-            <summary>💡 Show hints</summary>
-            <ol>
-              <li>Create the <code>my-recipes</code> folder: <code>mkdir my-recipes</code></li>
-              <li data-os="windows">Create subfolders: <code>mkdir my-recipes/breakfast my-recipes/lunch my-recipes/dinner</code></li>
-              <li data-os="macos linux">Create subfolders: <code>mkdir my-recipes/breakfast my-recipes/lunch my-recipes/dinner</code></li>
-              <li data-os="windows">Create files: <code>type nul &gt; my-recipes/breakfast/favorite.txt</code> (repeat for lunch, dinner)</li>
-              <li data-os="macos linux">Create files: <code>touch my-recipes/breakfast/favorite.txt my-recipes/lunch/favorite.txt my-recipes/dinner/favorite.txt</code></li>
-              <li>Add content: <code>echo "Pancakes!" &gt; my-recipes/breakfast/favorite.txt</code></li>
-              <li>Verify: <code>ls -R my-recipes</code></li>
-            </ol>
-          </details>
+        <!-- Row 4: Checklist -->
+        <div class="checklist">
+          <h3>Checklist</h3>
+          <div id="goal-0" class="checklist-item"><span class="check-icon"></span>Create <code>my-recipes/</code> folder</div>
+          <div id="goal-1" class="checklist-item"><span class="check-icon"></span>Create <code>breakfast/</code> subfolder</div>
+          <div id="goal-2" class="checklist-item"><span class="check-icon"></span>Create <code>lunch/</code> subfolder</div>
+          <div id="goal-3" class="checklist-item"><span class="check-icon"></span>Create <code>dinner/</code> subfolder</div>
+          <div id="goal-4" class="checklist-item"><span class="check-icon"></span>Add a file in <code>breakfast/</code></div>
+          <div id="goal-5" class="checklist-item"><span class="check-icon"></span>Add a file in <code>lunch/</code></div>
+          <div id="goal-6" class="checklist-item"><span class="check-icon"></span>Add a file in <code>dinner/</code></div>
         </div>
 
       </div>
