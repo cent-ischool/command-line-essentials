@@ -193,8 +193,7 @@ class VirtualFS {
     let p = rawPath.replace(/\\/g, '/');
     if (p === '~') return this.home();
     if (p.startsWith('~/')) p = this.home() + p.slice(1);
-    if (this.os === 'windows' && /^[A-Za-z]:\//.test(p)) return p;
-    if (!p.startsWith('/')) p = this.cwd + '/' + p;
+    if (!p.startsWith('/') && !(this.os === 'windows' && /^[A-Za-z]:\//.test(p))) p = this.cwd + '/' + p;
     const parts = p.split('/');
     const out = [];
     for (const part of parts) {
@@ -321,7 +320,7 @@ class VirtualFS {
     this._registerChild(dp);
     this._unregisterChild(sp);
     this.entries.delete(sp);
-    if (this.cwd === sp) this.cwd = dp;
+    if (this.cwd === sp || this.cwd.startsWith(sp + '/')) this.cwd = dp + this.cwd.slice(sp.length);
     return '';
   }
 
@@ -364,6 +363,7 @@ class FreeTerminal {
     this.fs = new VirtualFS(this.os);
     this.history = [];
     this.histIdx = -1;
+    this._completed = false;
     this.updatePrompt();
     this._bindKeys();
     window._freeTerminal = this;
@@ -481,7 +481,8 @@ class FreeTerminal {
       }
     });
 
-    if (allDone) {
+    if (allDone && !this._completed) {
+      this._completed = true;
       setLessonProgress(this.lessonId, 'complete');
       renderSidebar(this.lessonId);
       if (this.onComplete) this.onComplete();
@@ -490,7 +491,12 @@ class FreeTerminal {
 
   reset() {
     this.fs.reset();
+    this._completed = false;
     this.outputEl.innerHTML = '';
+    this.goals.forEach((_, i) => {
+      const item = document.getElementById(`goal-${i}`);
+      if (item) item.classList.remove('done');
+    });
     this.updatePrompt();
   }
 }
