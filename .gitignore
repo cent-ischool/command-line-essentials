@@ -13,3 +13,4 @@ certificate.pdf
 # Editor directories
 .vscode/
 .idea/.worktrees/
+.superpowers/
