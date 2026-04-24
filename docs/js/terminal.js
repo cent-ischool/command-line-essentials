@@ -8,6 +8,7 @@ class GuidedTerminal {
     this.lessonId = lessonId;
     this.nextHref = nextHref;
     this.current = 0;
+    this._advancing = false;
     window._terminal = this;
     this.render();
   }
@@ -20,6 +21,10 @@ class GuidedTerminal {
     return { windows: 'C:\\Users\\student>', macos: 'user@mac:~$', linux: 'user@ubuntu:~$' }[this.os];
   }
 
+  _esc(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
   normalize(cmd) {
     return cmd.trim().toLowerCase().replace(/\s+/g, ' ');
   }
@@ -28,9 +33,7 @@ class GuidedTerminal {
     const os = this.os;
     const expected = this.exercise.expected[os] || this.exercise.expected.all || [];
     const n = this.normalize(input);
-    // Check exact matches first
     if (expected.map(e => this.normalize(e)).includes(n)) return true;
-    // Check prefix matches for commands like "echo > file" where content varies
     if (this.exercise.matchPrefix) {
       return expected.some(e => n.startsWith(this.normalize(e)));
     }
@@ -38,8 +41,11 @@ class GuidedTerminal {
   }
 
   render() {
-    const ex = this.exercise;
+    this._advancing = false;
     const os = this.os;
+    if (!os) return;
+
+    const ex = this.exercise;
     const total = this.exercises.length;
     const idx = this.current;
 
@@ -47,7 +53,7 @@ class GuidedTerminal {
       `<span class="ex-dot ${i < idx ? 'done' : i === idx ? 'active' : ''}"></span>`
     ).join('');
 
-    const prompt = ex.prompt[os] || ex.prompt.all || '';
+    const promptText = ex.prompt[os] || ex.prompt.all || '';
 
     this.el.innerHTML = `
       <div class="exercise-section-label">Practice</div>
@@ -55,9 +61,9 @@ class GuidedTerminal {
         <div class="exercise-header">
           <span class="exercise-label">Exercise ${idx + 1} of ${total}</span>
         </div>
-        <p class="exercise-prompt">${prompt}</p>
+        <p class="exercise-prompt">${this._esc(promptText)}</p>
         <div class="terminal-input-row">
-          <span class="terminal-prompt">${this.prompt}</span>
+          <span class="terminal-prompt">${this._esc(this.prompt)}</span>
           <input type="text" id="cmd-input" class="terminal-input"
             autocomplete="off" spellcheck="false" placeholder="type your command here">
           <button class="run-btn" onclick="window._terminal.run()">▶ Run</button>
@@ -69,7 +75,7 @@ class GuidedTerminal {
           <button id="next-btn" class="next-btn" style="display:none"
             onclick="window._terminal.next()">Next exercise →</button>
         </div>
-        <div id="hint-text" class="hint-text" style="display:none">${ex.hint}</div>
+        <div id="hint-text" class="hint-text" style="display:none">${this._esc(ex.hint)}</div>
         <div class="ex-dots">${dots}</div>
       </div>
     `;
@@ -94,7 +100,8 @@ class GuidedTerminal {
       const os = this.os;
       const out = this.exercise.output[os] || this.exercise.output.all || '';
       outputEl.className = 'terminal-output success';
-      outputEl.innerHTML = `<div class="output-status">✓ Correct!</div>${out ? `<div class="output-text">${out}</div>` : ''}`;
+      const outHtml = out ? `<div class="output-text">${this._esc(out)}</div>` : '';
+      outputEl.innerHTML = `<div class="output-status">✓ Correct!</div>${outHtml}`;
       const nextBtn = document.getElementById('next-btn');
       if (nextBtn) nextBtn.style.display = 'inline-block';
       input.disabled = true;
@@ -114,6 +121,8 @@ class GuidedTerminal {
   next() { this._advance(); }
 
   _advance() {
+    if (this._advancing) return;
+    this._advancing = true;
     this.current++;
     if (this.current >= this.exercises.length) {
       setLessonProgress(this.lessonId, 'complete');
