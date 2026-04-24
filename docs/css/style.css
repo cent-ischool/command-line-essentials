@@ -202,10 +202,11 @@ code { font-family: 'Courier New', monospace; font-size: 13px; background: var(-
 /* ── Free Terminal (Lesson 5) ─────────────────────── */
 .challenge-grid {
   display: grid;
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: 2fr 1fr;
   gap: 20px;
   align-items: start;
 }
+.challenge-full { grid-column: 1 / -1; }
 .challenge-goal {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -215,7 +216,7 @@ code { font-family: 'Courier New', monospace; font-size: 13px; background: var(-
 }
 .challenge-goal h2 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
 .challenge-goal pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px; font-size: 13px; overflow-x: auto; margin-top: 10px; }
-.challenge-hints-col { min-width: 0; }
+.challenge-hints-row { min-width: 0; }
 .challenge-terminal { min-width: 0; }
 .challenge-checklist-col { min-width: 0; }
 .checklist { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
