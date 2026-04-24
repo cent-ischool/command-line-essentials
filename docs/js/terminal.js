@@ -25,6 +25,12 @@ class GuidedTerminal {
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
+  // Like _esc but allows <code>...</code> for hint and prompt display
+  _safeHtml(str) {
+    return this._esc(str)
+      .replace(/&lt;code&gt;/g,'<code>').replace(/&lt;\/code&gt;/g,'</code>');
+  }
+
   normalize(cmd) {
     return cmd.trim().toLowerCase().replace(/\s+/g, ' ');
   }
@@ -61,7 +67,7 @@ class GuidedTerminal {
         <div class="exercise-header">
           <span class="exercise-label">Exercise ${idx + 1} of ${total}</span>
         </div>
-        <p class="exercise-prompt">${this._esc(promptText)}</p>
+        <p class="exercise-prompt">${this._safeHtml(promptText)}</p>
         <div class="terminal-input-row">
           <span class="terminal-prompt">${this._esc(this.prompt)}</span>
           <input type="text" id="cmd-input" class="terminal-input"
@@ -75,7 +81,7 @@ class GuidedTerminal {
           <button id="next-btn" class="next-btn" style="display:none"
             onclick="window._terminal.next()">Next exercise →</button>
         </div>
-        <div id="hint-text" class="hint-text" style="display:none">${this._esc(ex.hint)}</div>
+        <div id="hint-text" class="hint-text" style="display:none">${this._safeHtml(ex.hint)}</div>
         <div class="ex-dots">${dots}</div>
       </div>
     `;
