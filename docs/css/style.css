@@ -301,55 +301,58 @@ code { font-family: 'Courier New', monospace; font-size: 13px; background: var(-
   font-weight: 600; cursor: pointer;
 }
 .cert-generate-btn:hover { background: #1e40af; }
-.certificate { margin: 32px 0 16px; }
+.certificate { margin: 24px 0 16px; }
 .cert-border-outer {
   border: 6px double #1d4ed8;
   border-radius: 4px;
   padding: 6px;
   background: #fff;
   box-shadow: 0 4px 24px rgba(0,0,0,.1);
-  max-width: 760px;
+  max-width: 680px;
   overflow: hidden;
 }
 .cert-header {
   background: #1a2744;
-  padding: 28px 48px;
+  padding: 22px 40px;
   text-align: center;
   border-bottom: 3px solid #bfdbfe;
 }
-.cert-logo { max-height: 72px; width: auto; }
-.cert-body {
-  padding: 36px 56px 44px;
+.cert-logo { max-height: 64px; width: auto; }
+.cert-content-row { display: flex; align-items: stretch; background: #fefefe; }
+.cert-main {
+  flex: 1; min-width: 0;
+  padding: 28px 36px 28px;
   text-align: center;
-  background: #fefefe;
+}
+.cert-sidebar {
+  width: 130px; flex-shrink: 0;
+  background: var(--blue-light);
+  border-left: 2px solid var(--blue-mid);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; padding: 20px 12px;
 }
 .cert-heading {
-  font-size: 11px; font-weight: 700; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--text-muted); margin-bottom: 28px;
+  font-size: 10px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;
 }
-.cert-presented { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; }
+.cert-presented { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
 .cert-name {
-  font-size: 36px; font-weight: 700; color: var(--text);
-  border-bottom: 2px solid var(--border); padding-bottom: 10px;
-  margin: 0 auto 16px; display: inline-block; min-width: 320px;
+  font-size: 30px; font-weight: 700; color: var(--text);
+  border-bottom: 2px solid var(--border); padding-bottom: 8px;
+  margin: 0 auto 14px; display: inline-block; min-width: 260px;
 }
-.cert-course { font-size: 22px; font-weight: 700; color: var(--blue); margin: 8px 0 16px; }
+.cert-course { font-size: 20px; font-weight: 700; color: var(--blue); margin: 6px 0 12px; }
 .cert-edition {
-  display: inline-block; font-size: 12px; font-weight: 600;
+  display: inline-block; font-size: 11px; font-weight: 600;
   letter-spacing: 1px; text-transform: uppercase;
   color: var(--blue); border: 1px solid var(--blue-mid);
   background: var(--blue-light); border-radius: var(--radius-pill);
-  padding: 3px 14px; margin-bottom: 20px;
+  padding: 3px 12px; margin-bottom: 14px;
 }
-.cert-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 32px; }
-.cert-footer-row {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border);
-}
-.cert-date { font-size: 13px; color: var(--text-faint); font-style: italic; }
-.cert-qr-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.cert-qr-wrap img, .cert-qr-wrap canvas { display: block; }
-.cert-qr-label { font-size: 10px; color: var(--text-faint); text-transform: uppercase; letter-spacing: .5px; }
+.cert-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+.cert-date { font-size: 12px; color: var(--text-faint); font-style: italic; }
+.cert-qr-label { font-size: 9px; color: var(--blue); text-transform: uppercase; letter-spacing: .5px; text-align: center; }
 .cert-actions { display: flex; gap: 12px; align-items: center; margin-bottom: 32px; }
 .cert-print-btn {
   background: var(--blue); color: var(--white); border: none;
@@ -371,6 +374,11 @@ code { font-family: 'Courier New', monospace; font-size: 13px; background: var(-
   .layout { display: block !important; }
   .main-content { padding: 0 !important; max-width: none !important; }
   body { background: white !important; }
-  .cert-border-outer { box-shadow: none !important; max-width: none !important; }
-  @page { size: landscape; margin: 1cm; }
+  .certificate { margin: 0 !important; }
+  .cert-border-outer {
+    box-shadow: none !important;
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+  @page { size: letter portrait; margin: 0.6in; }
 }
