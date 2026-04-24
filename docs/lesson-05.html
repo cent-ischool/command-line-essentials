@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 5: Challenge — Command Line Essentials</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-lesson="lesson-05">
+
+  <div id="os-overlay" style="display:none">
+    <div class="os-overlay-box">
+      <h2>Choose your platform</h2>
+      <p>We'll show instructions for your operating system.</p>
+      <div class="os-buttons">
+        <button class="os-btn" onclick="selectOS('windows', false)"><span class="os-icon">⊞</span><div><div class="os-name">Windows</div><div class="os-desc">PowerShell or CMD</div></div></button>
+        <button class="os-btn" onclick="selectOS('macos', false)"><span class="os-icon">⌘</span><div><div class="os-name">macOS</div><div class="os-desc">Terminal app</div></div></button>
+        <button class="os-btn" onclick="selectOS('linux', false)"><span class="os-icon">🐧</span><div><div class="os-name">Ubuntu Linux</div><div class="os-desc">Bash terminal</div></div></button>
+      </div>
+      <p class="os-note">Saved as a cookie — change anytime</p>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <a class="topbar-brand" href="index.html">⌨️ Command Line Essentials</a>
+    <div class="topbar-os">
+      <span>Your platform:</span>
+      <span id="os-badge" class="os-badge"></span>
+      <button class="change-os" onclick="showOSOverlay()">change</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar" class="sidebar"></nav>
+    <main class="main-content">
+
+      <h1 class="lesson-title">Lesson 5: Challenge — Build a Recipe Collection</h1>
+      <p class="lesson-intro">Put everything together. Build a folder structure using only the terminal. The checklist on the right tracks your progress automatically.</p>
+
+      <div class="challenge-layout">
+
+        <div class="challenge-info">
+          <div class="lesson-section">
+            <h2>The Goal</h2>
+            <p>Create a <code>my-recipes</code> folder with three category folders, each containing a recipe file.</p>
+            <pre style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:12px;font-size:13px;line-height:1.6;">my-recipes/
+├── breakfast/
+│   └── favorite.txt
+├── lunch/
+│   └── favorite.txt
+└── dinner/
+    └── favorite.txt</pre>
+          </div>
+
+          <div class="lesson-section">
+            <h2>Hint: Step by Step</h2>
+            <ol style="padding-left:20px;font-size:14px;line-height:2;">
+              <li>Create the <code>my-recipes</code> folder: <code>mkdir my-recipes</code></li>
+              <li data-os="windows">Create the subfolders: <code>mkdir my-recipes/breakfast my-recipes/lunch my-recipes/dinner</code></li>
+              <li data-os="macos linux">Create the subfolders: <code>mkdir my-recipes/breakfast my-recipes/lunch my-recipes/dinner</code></li>
+              <li data-os="windows">Create files: <code>type nul &gt; my-recipes/breakfast/favorite.txt</code> (repeat for lunch, dinner)</li>
+              <li data-os="macos linux">Create files: <code>touch my-recipes/breakfast/favorite.txt my-recipes/lunch/favorite.txt my-recipes/dinner/favorite.txt</code></li>
+              <li>Add content: <code>echo "Pancakes!" &gt; my-recipes/breakfast/favorite.txt</code></li>
+              <li>Verify: <code>ls -R my-recipes</code></li>
+            </ol>
+          </div>
+
+          <div class="checklist">
+            <h3>Checklist</h3>
+            <div id="goal-0" class="checklist-item"><span class="check-icon"></span>Create <code>my-recipes/</code> folder</div>
+            <div id="goal-1" class="checklist-item"><span class="check-icon"></span>Create <code>breakfast/</code> subfolder</div>
+            <div id="goal-2" class="checklist-item"><span class="check-icon"></span>Create <code>lunch/</code> subfolder</div>
+            <div id="goal-3" class="checklist-item"><span class="check-icon"></span>Create <code>dinner/</code> subfolder</div>
+            <div id="goal-4" class="checklist-item"><span class="check-icon"></span>Add a file in <code>breakfast/</code></div>
+            <div id="goal-5" class="checklist-item"><span class="check-icon"></span>Add a file in <code>lunch/</code></div>
+            <div id="goal-6" class="checklist-item"><span class="check-icon"></span>Add a file in <code>dinner/</code></div>
+          </div>
+        </div>
+
+        <div class="challenge-terminal">
+          <div class="free-terminal-box">
+            <div class="free-terminal-header">
+              <span class="free-terminal-title">Terminal</span>
+              <button class="reset-terminal-btn" onclick="window._freeTerminal && window._freeTerminal.reset()">Reset</button>
+            </div>
+            <div id="ft-output" class="free-terminal-output"></div>
+            <div class="free-terminal-input-row">
+              <span id="ft-prompt" class="free-terminal-prompt-text"></span>
+              <input type="text" id="ft-input" class="free-terminal-input"
+                autocomplete="off" spellcheck="false" placeholder="type a command...">
+              <button class="free-run-btn" onclick="window._freeTerminal && window._freeTerminal.run(document.getElementById('ft-input').value); document.getElementById('ft-input').value=''">Run</button>
+            </div>
+          </div>
+          <div id="challenge-complete" style="display:none" class="lesson-complete">
+            <div class="complete-icon">🏆</div>
+            <h2>Challenge Complete!</h2>
+            <p>You've finished the course. Great work!</p>
+            <a href="index.html" class="next-lesson-btn">Back to Dashboard</a>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/terminal.js"></script>
+  <script>
+    initLesson('lesson-05');
+
+    const GOALS = [
+      { type: 'dir-exists',  path: 'my-recipes',            label: 'Created my-recipes/ folder' },
+      { type: 'dir-exists',  path: 'my-recipes/breakfast',  label: 'Created breakfast/ subfolder' },
+      { type: 'dir-exists',  path: 'my-recipes/lunch',      label: 'Created lunch/ subfolder' },
+      { type: 'dir-exists',  path: 'my-recipes/dinner',     label: 'Created dinner/ subfolder' },
+      { type: 'file-exists', path: 'my-recipes/breakfast/*', label: 'Added a file in breakfast/' },
+      { type: 'file-exists', path: 'my-recipes/lunch/*',    label: 'Added a file in lunch/' },
+      { type: 'file-exists', path: 'my-recipes/dinner/*',   label: 'Added a file in dinner/' },
+    ];
+
+    new FreeTerminal(
+      document.getElementById('ft-output'),
+      document.getElementById('ft-input'),
+      document.getElementById('ft-prompt'),
+      GOALS,
+      'lesson-05',
+      () => { document.getElementById('challenge-complete').style.display = 'block'; }
+    );
+  </script>
+</body>
+</html>
