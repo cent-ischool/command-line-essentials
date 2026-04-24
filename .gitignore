@@ -1,0 +1,15 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.swp
+*.tmp
+
+# Badge outputs
+badge.svg
+certificate.pdf
+
+# Editor directories
+.vscode/
+.idea/

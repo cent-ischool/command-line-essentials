@@ -1,0 +1,6 @@
+title: Command Line Essentials
+description: A self-paced course on using the command line
+theme: minima
+markdown: kramdown
+kramdown:
+  input: GFM
