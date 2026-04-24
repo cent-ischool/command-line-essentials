@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 3: Files & Folders — Command Line Essentials</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-lesson="lesson-03">
+
+  <div id="os-overlay" style="display:none">
+    <div class="os-overlay-box">
+      <h2>Choose your platform</h2>
+      <p>We'll show instructions for your operating system.</p>
+      <div class="os-buttons">
+        <button class="os-btn" onclick="selectOS('windows', false)"><span class="os-icon">⊞</span><div><div class="os-name">Windows</div><div class="os-desc">PowerShell or CMD</div></div></button>
+        <button class="os-btn" onclick="selectOS('macos', false)"><span class="os-icon">⌘</span><div><div class="os-name">macOS</div><div class="os-desc">Terminal app</div></div></button>
+        <button class="os-btn" onclick="selectOS('linux', false)"><span class="os-icon">🐧</span><div><div class="os-name">Ubuntu Linux</div><div class="os-desc">Bash terminal</div></div></button>
+      </div>
+      <p class="os-note">Saved as a cookie — change anytime</p>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <a class="topbar-brand" href="index.html">⌨️ Command Line Essentials</a>
+    <div class="topbar-os">
+      <span>Your platform:</span>
+      <span id="os-badge" class="os-badge"></span>
+      <button class="change-os" onclick="showOSOverlay()">change</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar" class="sidebar"></nav>
+    <main class="main-content">
+
+      <h1 class="lesson-title">Lesson 3: Files &amp; Folders</h1>
+      <p class="lesson-intro">Create, copy, move, and delete files and folders from the command line.</p>
+
+      <div class="lesson-section">
+        <h2>Creating Folders</h2>
+        <p><code>mkdir FolderName</code> — creates a new folder (same on all platforms).</p>
+        <p>Create multiple at once: <code>mkdir breakfast lunch dinner</code></p>
+      </div>
+
+      <div class="lesson-section">
+        <h2>Creating Files</h2>
+        <p data-os="windows"><code>type nul &gt; filename.txt</code> — creates an empty file in PowerShell.</p>
+        <p data-os="macos linux"><code>touch filename.txt</code> — creates an empty file.</p>
+      </div>
+
+      <div class="lesson-section">
+        <h2>Writing &amp; Reading Files</h2>
+        <p><code>echo "text" &gt; filename.txt</code> — writes text to a file (overwrites). Same on all platforms.</p>
+        <p><code>cat filename.txt</code> — reads and prints a file's contents. Same on all platforms.</p>
+        <div class="callout warning">⚠️ The <code>&gt;</code> operator overwrites the file. Use <code>&gt;&gt;</code> to append instead.</div>
+      </div>
+
+      <div class="lesson-section">
+        <h2>Copying, Moving, Deleting</h2>
+        <p><code>cp source.txt dest.txt</code> — copies a file. Same on all platforms.</p>
+        <p><code>mv old.txt new.txt</code> — renames or moves a file. Same on all platforms.</p>
+        <p><code>rm filename.txt</code> — deletes a file. Same on all platforms.</p>
+        <p><code>rmdir FolderName</code> — deletes an empty folder. Same on all platforms.</p>
+        <div class="callout warning">⚠️ There is no recycle bin in the terminal. Deleted files are gone permanently.</div>
+      </div>
+
+      <div id="terminal-container"></div>
+
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/terminal.js"></script>
+  <script>
+    initLesson('lesson-03');
+
+    const EXERCISES = [
+      {
+        prompt: { all: 'Create a folder called <code>projects</code>.' },
+        expected: { all: ['mkdir projects'] },
+        output: { all: '' },
+        hint: 'Try: <code>mkdir projects</code>'
+      },
+      {
+        prompt: {
+          windows: 'Create an empty file called <code>notes.txt</code>.',
+          macos: 'Create an empty file called <code>notes.txt</code>.',
+          linux: 'Create an empty file called <code>notes.txt</code>.'
+        },
+        expected: {
+          windows: ['type nul > notes.txt'],
+          macos: ['touch notes.txt'],
+          linux: ['touch notes.txt']
+        },
+        output: { all: '' },
+        hint: 'Windows: <code>type nul &gt; notes.txt</code>. Mac/Linux: <code>touch notes.txt</code>.'
+      },
+      {
+        prompt: { all: 'Write the text <code>Hello</code> to <code>notes.txt</code> using <code>echo</code> and <code>&gt;</code>.' },
+        expected: {
+          all: ['echo "hello" > notes.txt', "echo 'hello' > notes.txt",
+                'echo hello > notes.txt', 'echo "Hello" > notes.txt',
+                "echo 'Hello' > notes.txt", 'echo Hello > notes.txt']
+        },
+        matchPrefix: false,
+        output: { all: '' },
+        hint: 'Try: <code>echo "Hello" &gt; notes.txt</code>'
+      },
+      {
+        prompt: { all: 'Read the contents of <code>notes.txt</code>.' },
+        expected: { all: ['cat notes.txt'] },
+        output: { all: 'Hello' },
+        hint: 'Try: <code>cat notes.txt</code>'
+      },
+      {
+        prompt: { all: 'Delete the file <code>notes.txt</code>.' },
+        expected: { all: ['rm notes.txt'] },
+        output: { all: '' },
+        hint: 'Try: <code>rm notes.txt</code>'
+      }
+    ];
+
+    new GuidedTerminal(
+      document.getElementById('terminal-container'),
+      EXERCISES, 'lesson-03', 'lesson-04.html'
+    );
+  </script>
+</body>
+</html>
