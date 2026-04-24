@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4: GUI Bridge — Command Line Essentials</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-lesson="lesson-04">
+
+  <div id="os-overlay" style="display:none">
+    <div class="os-overlay-box">
+      <h2>Choose your platform</h2>
+      <p>We'll show instructions for your operating system.</p>
+      <div class="os-buttons">
+        <button class="os-btn" onclick="selectOS('windows', false)"><span class="os-icon">⊞</span><div><div class="os-name">Windows</div><div class="os-desc">PowerShell or CMD</div></div></button>
+        <button class="os-btn" onclick="selectOS('macos', false)"><span class="os-icon">⌘</span><div><div class="os-name">macOS</div><div class="os-desc">Terminal app</div></div></button>
+        <button class="os-btn" onclick="selectOS('linux', false)"><span class="os-icon">🐧</span><div><div class="os-name">Ubuntu Linux</div><div class="os-desc">Bash terminal</div></div></button>
+      </div>
+      <p class="os-note">Saved as a cookie — change anytime</p>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <a class="topbar-brand" href="index.html">⌨️ Command Line Essentials</a>
+    <div class="topbar-os">
+      <span>Your platform:</span>
+      <span id="os-badge" class="os-badge"></span>
+      <button class="change-os" onclick="showOSOverlay()">change</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar" class="sidebar"></nav>
+    <main class="main-content">
+
+      <h1 class="lesson-title">Lesson 4: GUI ↔ Terminal Bridge</h1>
+      <p class="lesson-intro">The terminal and your file manager (File Explorer, Finder, Files) are just two different views of the same folders. This lesson shows you how to move between them.</p>
+
+      <div class="lesson-section">
+        <h2>The Key Insight</h2>
+        <p>When you create a file in the terminal, the file manager shows it. When you delete a file in the file manager, the terminal reflects that too. They are <strong>two windows into the same folder</strong>.</p>
+      </div>
+
+      <div class="lesson-section">
+        <h2>Open the GUI from the Terminal</h2>
+        <p>Use <code>.</code> to mean "the current folder":</p>
+        <p data-os="windows"><code>explorer .</code> — opens the current folder in File Explorer.</p>
+        <p data-os="macos"><code>open .</code> — opens the current folder in Finder.</p>
+        <p data-os="linux"><code>xdg-open .</code> — opens the current folder in Files (Nautilus).</p>
+        <p>You can also open a specific folder:</p>
+        <p data-os="windows"><code>explorer C:\Users\YourName\Documents</code></p>
+        <p data-os="macos"><code>open ~/Documents</code></p>
+        <p data-os="linux"><code>xdg-open ~/Documents</code></p>
+      </div>
+
+      <div class="lesson-section">
+        <h2>Open the Terminal from the GUI</h2>
+        <p data-os="windows"><strong>Windows 11:</strong> Right-click a folder → "Open in Terminal". <strong>Windows 10:</strong> Click the address bar → type <code>cmd</code> → Enter.</p>
+        <p data-os="macos">System Settings → Keyboard → Keyboard Shortcuts → Services → enable "New Terminal at Folder". Then right-click any folder → Services → "New Terminal at Folder".</p>
+        <p data-os="linux">Right-click a folder → "Open in Terminal". Or press <strong>Ctrl+Alt+T</strong> to open a terminal at your home folder.</p>
+      </div>
+
+      <div id="terminal-container"></div>
+
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/terminal.js"></script>
+  <script>
+    initLesson('lesson-04');
+
+    const EXERCISES = [
+      {
+        prompt: {
+          windows: 'Open the current folder in File Explorer.',
+          macos: 'Open the current folder in Finder.',
+          linux: 'Open the current folder in the Files app.'
+        },
+        expected: {
+          windows: ['explorer .', 'explorer.exe .'],
+          macos: ['open .'],
+          linux: ['xdg-open .']
+        },
+        output: {
+          windows: '(File Explorer opened)',
+          macos: '(Finder opened)',
+          linux: '(Files opened)'
+        },
+        hint: 'Windows: <code>explorer .</code> Mac: <code>open .</code> Linux: <code>xdg-open .</code>'
+      },
+      {
+        prompt: {
+          windows: 'Open your home folder in File Explorer.',
+          macos: 'Open your home folder in Finder.',
+          linux: 'Open your home folder in Files.'
+        },
+        expected: {
+          windows: ['explorer ~', 'explorer $env:userprofile', 'explorer $env:USERPROFILE'],
+          macos: ['open ~'],
+          linux: ['xdg-open ~']
+        },
+        output: {
+          windows: '(File Explorer opened at C:\\Users\\student)',
+          macos: '(Finder opened at /Users/student)',
+          linux: '(Files opened at /home/student)'
+        },
+        hint: 'Windows: <code>explorer ~</code> Mac: <code>open ~</code> Linux: <code>xdg-open ~</code>'
+      }
+    ];
+
+    new GuidedTerminal(
+      document.getElementById('terminal-container'),
+      EXERCISES, 'lesson-04', 'lesson-05.html'
+    );
+  </script>
+</body>
+</html>
