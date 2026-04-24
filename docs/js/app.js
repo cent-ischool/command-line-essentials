@@ -31,8 +31,10 @@ function applyOS(os) {
 
 // ── Progress ───────────────────────────────────────────────────
 function getProgress() {
-  try { return JSON.parse(localStorage.getItem('cle_progress')) || {}; }
-  catch { return {}; }
+  try {
+    const v = JSON.parse(localStorage.getItem('cle_progress'));
+    return (v && typeof v === 'object' && !Array.isArray(v)) ? v : {};
+  } catch { return {}; }
 }
 
 function setLessonProgress(lessonId, status) {
@@ -44,10 +46,13 @@ function setLessonProgress(lessonId, status) {
 
 function getFurthestLesson() {
   const p = getProgress();
-  for (const lesson of LESSONS) {
-    if (p[lesson.id] === 'in-progress') return lesson.href;
+  for (let i = LESSONS.length - 1; i >= 0; i--) {
+    const s = p[LESSONS[i].id];
+    if (s === 'complete' || s === 'in-progress') {
+      return LESSONS[Math.min(i + (s === 'complete' ? 1 : 0), LESSONS.length - 1)].href;
+    }
   }
-  return 'lesson-01.html';
+  return LESSONS[0].href;
 }
 
 // ── Sidebar ────────────────────────────────────────────────────
@@ -145,7 +150,8 @@ function renderDashboard() {
       : status === 'in-progress'
       ? '<span class="card-status in-progress">In Progress</span>'
       : '';
-    const cls = ['lesson-card', status || ''].filter(Boolean).join(' ');
+    const safeCls = (status === 'complete' || status === 'in-progress') ? status : '';
+    const cls = ['lesson-card', safeCls].filter(Boolean).join(' ');
     return `
       <a href="${lesson.href}" class="${cls}">
         <span class="card-icon">${lesson.icon}</span>
