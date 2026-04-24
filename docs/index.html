@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Command Line Essentials</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-lesson="">
+
+  <div id="os-overlay" style="display:none">
+    <div class="os-overlay-box">
+      <h2>Welcome!</h2>
+      <p>Before we start, tell us which computer you're using.</p>
+      <div class="os-buttons">
+        <button class="os-btn" onclick="selectOS('windows', true)">
+          <span class="os-icon">⊞</span>
+          <div><div class="os-name">Windows</div><div class="os-desc">PowerShell or CMD</div></div>
+        </button>
+        <button class="os-btn" onclick="selectOS('macos', true)">
+          <span class="os-icon">⌘</span>
+          <div><div class="os-name">macOS</div><div class="os-desc">Terminal app</div></div>
+        </button>
+        <button class="os-btn" onclick="selectOS('linux', true)">
+          <span class="os-icon">🐧</span>
+          <div><div class="os-name">Ubuntu Linux</div><div class="os-desc">Bash terminal</div></div>
+        </button>
+      </div>
+      <p class="os-note">Saved as a cookie — change anytime</p>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <a class="topbar-brand" href="index.html">⌨️ Command Line Essentials</a>
+    <div class="topbar-os">
+      <span>Your platform:</span>
+      <span id="os-badge" class="os-badge"></span>
+      <button class="change-os" onclick="showOSOverlay()">change</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar" class="sidebar"></nav>
+    <main class="main-content">
+      <div class="dashboard-intro">
+        <h1>Command Line Essentials</h1>
+        <p>Learn to use the terminal in 1–2 hours. Pick a lesson below to start — or continue where you left off.</p>
+      </div>
+      <div id="dashboard-cards" class="lesson-cards"></div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/terminal.js"></script>
+  <script>initIndex();</script>
+</body>
+</html>
