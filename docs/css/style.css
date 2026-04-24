@@ -201,9 +201,16 @@ code { font-family: 'Courier New', monospace; font-size: 13px; background: var(-
 
 /* ── Free Terminal (Lesson 5) ─────────────────────── */
 .challenge-layout { display: flex; gap: 24px; align-items: flex-start; }
-.challenge-info { flex: 1; min-width: 0; }
-.challenge-terminal { flex: 1; min-width: 0; }
-.checklist { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-top: 16px; }
+.challenge-terminal { flex: 3; min-width: 0; }
+.challenge-info { flex: 2; min-width: 0; }
+.checklist { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+.hint-accordion { border: 1px solid var(--border); border-radius: 8px; margin-top: 12px; overflow: hidden; }
+.hint-accordion summary { padding: 12px 16px; font-size: 14px; font-weight: 600; color: var(--text-muted); cursor: pointer; user-select: none; list-style: none; display: flex; align-items: center; gap: 8px; }
+.hint-accordion summary::-webkit-details-marker { display: none; }
+.hint-accordion[open] summary { color: var(--text); border-bottom: 1px solid var(--border); }
+.hint-accordion > ol { padding: 12px 16px 12px 36px; margin: 0; background: var(--surface); }
+.hint-accordion summary::after { content: '▸'; margin-left: auto; font-size: 11px; transition: transform .15s; }
+.hint-accordion[open] summary::after { transform: rotate(90deg); }
 .checklist h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--text-muted); margin-bottom: 10px; }
 .checklist-item { display: flex; align-items: center; gap: 10px; padding: 5px 0; font-size: 14px; color: var(--text-muted); border-bottom: 1px solid var(--border); }
 .checklist-item:last-child { border-bottom: none; }
