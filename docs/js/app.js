@@ -56,6 +56,11 @@ function getFurthestLesson() {
 }
 
 // ── Sidebar ────────────────────────────────────────────────────
+function allLessonsComplete() {
+  const p = getProgress();
+  return LESSONS.every(l => p[l.id] === 'complete');
+}
+
 function renderSidebar(currentLessonId) {
   const sidebar = document.getElementById('sidebar');
   if (!sidebar) return;
@@ -71,6 +76,10 @@ function renderSidebar(currentLessonId) {
     return `<a href="${lesson.href}" class="${cls}"><span class="lesson-icon">${icon}</span>${lesson.title}</a>`;
   }).join('');
 
+  const certLink = allLessonsComplete()
+    ? `<a href="certificate.html" class="sidebar-cert-link">🎓 Your Certificate</a>`
+    : '';
+
   sidebar.innerHTML = `
     <div class="sidebar-label">Course Lessons</div>
     ${items}
@@ -79,6 +88,7 @@ function renderSidebar(currentLessonId) {
       <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
       <div class="progress-text">${completedCount} of ${LESSONS.length} lessons complete</div>
     </div>
+    ${certLink}
     <div class="sidebar-footer">
       <a href="tip-sheet.html" target="_blank">📄 Tip Sheet</a>
       <button class="reset-link" onclick="resetProgress()">Reset progress</button>
@@ -143,7 +153,7 @@ function renderDashboard() {
   const container = document.getElementById('dashboard-cards');
   if (!container) return;
   const p = getProgress();
-  container.innerHTML = LESSONS.map(lesson => {
+  const lessonCards = LESSONS.map(lesson => {
     const status = p[lesson.id];
     const statusHtml = status === 'complete'
       ? '<span class="card-status complete">✓ Complete</span>'
@@ -161,4 +171,14 @@ function renderDashboard() {
         ${statusHtml}
       </a>`;
   }).join('');
+
+  const certCard = allLessonsComplete() ? `
+      <a href="certificate.html" class="lesson-card cert-card">
+        <span class="card-icon">🎓</span>
+        <div class="card-body">
+          <div class="card-title">Get Your Certificate</div>
+        </div>
+      </a>` : '';
+
+  container.innerHTML = lessonCards + certCard;
 }

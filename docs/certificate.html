@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate of Completion — Command Line Essentials</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-lesson="">
+
+  <div id="os-overlay" style="display:none">
+    <div class="os-overlay-box">
+      <h2>Choose your platform</h2>
+      <p>We'll show instructions for your operating system.</p>
+      <div class="os-buttons">
+        <button class="os-btn" onclick="selectOS('windows', false)"><span class="os-icon">⊞</span><div><div class="os-name">Windows</div><div class="os-desc">PowerShell or CMD</div></div></button>
+        <button class="os-btn" onclick="selectOS('macos', false)"><span class="os-icon">⌘</span><div><div class="os-name">macOS</div><div class="os-desc">Terminal app</div></div></button>
+        <button class="os-btn" onclick="selectOS('linux', false)"><span class="os-icon">🐧</span><div><div class="os-name">Ubuntu Linux</div><div class="os-desc">Bash terminal</div></div></button>
+      </div>
+      <p class="os-note">Saved as a cookie — change anytime</p>
+    </div>
+  </div>
+
+  <header class="topbar no-print">
+    <a class="topbar-brand" href="index.html">⌨️ Command Line Essentials</a>
+    <div class="topbar-os">
+      <span>Your platform:</span>
+      <span id="os-badge" class="os-badge"></span>
+      <button class="change-os" onclick="showOSOverlay()">change</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar" class="sidebar no-print"></nav>
+    <main class="main-content">
+
+      <div class="cert-intro no-print">
+        <h1 class="lesson-title">Certificate of Completion</h1>
+        <p class="lesson-intro">Enter your name as you'd like it to appear on the certificate, then print or save it as a PDF.</p>
+        <div class="cert-name-form">
+          <input type="text" id="cert-name-input" class="cert-name-input"
+            placeholder="Your full name" maxlength="60"
+            onkeydown="if(event.key==='Enter') generateCert()">
+          <button class="cert-generate-btn" onclick="generateCert()">Generate Certificate</button>
+        </div>
+      </div>
+
+      <div id="cert-output" style="display:none">
+        <div class="certificate">
+          <div class="cert-border-outer">
+            <div class="cert-border-inner">
+              <div class="cert-seal">⌨️</div>
+              <div class="cert-heading">Certificate of Completion</div>
+              <div class="cert-presented">This certifies that</div>
+              <div class="cert-name" id="cert-name-display"></div>
+              <div class="cert-presented">has successfully completed</div>
+              <div class="cert-course">Command Line Essentials</div>
+              <div class="cert-desc">A hands-on course covering the terminal, file navigation,<br>and command-line tools across Windows, macOS, and Linux.</div>
+              <div class="cert-date" id="cert-date"></div>
+            </div>
+          </div>
+        </div>
+        <div class="cert-actions no-print">
+          <button class="cert-print-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+          <button class="cert-edit-btn" onclick="editName()">Edit name</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/terminal.js"></script>
+  <script>
+    function initCertificate() {
+      const os = getOS();
+      if (!os) { showOSOverlay(); return; }
+      applyOS(os);
+      renderSidebar(null);
+      const saved = localStorage.getItem('cle_cert_name');
+      if (saved) document.getElementById('cert-name-input').value = saved;
+    }
+
+    function generateCert() {
+      const name = document.getElementById('cert-name-input').value.trim();
+      if (!name) { document.getElementById('cert-name-input').focus(); return; }
+      localStorage.setItem('cle_cert_name', name);
+      document.getElementById('cert-name-display').textContent = name;
+      const now = new Date();
+      document.getElementById('cert-date').textContent =
+        now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      document.getElementById('cert-output').style.display = 'block';
+      document.getElementById('cert-output').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function editName() {
+      document.getElementById('cert-output').style.display = 'none';
+      document.getElementById('cert-name-input').focus();
+    }
+
+    initCertificate();
+  </script>
+</body>
+</html>
